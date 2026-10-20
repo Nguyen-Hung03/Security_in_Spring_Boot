@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Thiết lập bảo mật')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h1 class="h3 mb-3">Xác thực hai bước</h1>
+            <div th:if="${param.disabled}" class="alert alert-success">Đã tắt xác thực hai bước.</div>
+            <div th:if="${confirmError}" class="alert alert-danger">Mã xác thực không đúng.</div>
+            <div th:if="${actionError}" class="alert alert-danger" th:text="${actionError}"></div>
+            <div th:if="${mandatory and !enabled}" class="alert alert-warning">Vai trò của bạn bắt buộc phải bật xác thực hai bước trước khi dùng hệ thống.</div>
+            <div th:if="${enabled}" class="card card-body">
+                <p>Xác thực hai bước đang bật.</p>
+                <form th:action="@{/account/2fa/recovery}" method="post" class="mb-3">
+                    <h2 class="h6">Tạo lại mã khôi phục</h2>
+                    <input name="password" type="password" class="form-control mb-2" placeholder="Mật khẩu hiện tại" autocomplete="current-password">
+                    <input name="code" class="form-control mb-2" placeholder="Mã xác thực" autocomplete="one-time-code">
+                    <button class="btn btn-outline-primary" type="submit">Tạo 10 mã mới</button>
+                </form>
+                <form th:unless="${mandatory}" th:action="@{/account/2fa/disable}" method="post">
+                    <h2 class="h6">Tắt xác thực hai bước</h2>
+                    <input name="password" type="password" class="form-control mb-2" placeholder="Mật khẩu hiện tại" autocomplete="current-password">
+                    <input name="code" class="form-control mb-2" placeholder="Mã xác thực" autocomplete="one-time-code">
+                    <button class="btn btn-outline-danger" type="submit">Tắt</button>
+                </form>
+            </div>
+            <div th:unless="${enabled}" class="card card-body">
+                <p>Quét mã QR bằng ứng dụng xác thực, hoặc nhập khóa thủ công.</p>
+                <img class="img-fluid mb-3" th:src="${qr}" alt="Mã QR xác thực hai bước">
+                <p>Khóa: <code id="totp-secret" th:text="${secret}">SECRET</code></p>
+                <form th:action="@{/account/2fa/confirm}" method="post">
+                    <label for="code" class="form-label">Mã 6 số để xác nhận</label>
+                    <input id="code" name="code" class="form-control mb-3" autocomplete="one-time-code" required>
+                    <button class="btn btn-primary" type="submit">Bật xác thực hai bước</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

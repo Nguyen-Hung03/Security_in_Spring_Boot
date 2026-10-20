@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Nhật ký kiểm toán')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <h1 class="h3 mb-3">Nhật ký kiểm toán</h1>
+    <form method="get" th:action="@{/admin/audit}" class="row g-2 mb-3">
+        <div class="col-md-4">
+            <select class="form-select" name="type">
+                <option value="">Mọi sự kiện</option>
+                <option th:each="item : ${types}" th:value="${item}" th:text="${item}" th:selected="${type == item.name()}"></option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input class="form-control" name="actor" th:value="${actor}" placeholder="Email tài khoản">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-primary w-100" type="submit">Lọc</button>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table bg-white">
+            <thead>
+            <tr><th>Thời điểm</th><th>Sự kiện</th><th>Tài khoản</th><th>Đích</th><th>IP</th><th>Trình duyệt</th><th>Chi tiết</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events.content}">
+                <td th:text="${#temporals.format(event.occurredAt, 'dd/MM/yyyy HH:mm')}">thời điểm</td>
+                <td th:text="${event.type}">LOGIN</td>
+                <td th:text="${event.actorUsername}">actor</td>
+                <td th:text="${event.targetUsername}">target</td>
+                <td th:text="${event.ip}">ip</td>
+                <td th:text="${event.userAgent}">ua</td>
+                <td th:text="${event.details}">chi tiết</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="d-flex gap-3" th:if="${events.totalPages > 1}">
+        <a th:if="${events.hasPrevious()}" th:href="@{/admin/audit(page=${events.number - 1},type=${type},actor=${actor})}">Trước</a>
+        <a th:if="${events.hasNext()}" th:href="@{/admin/audit(page=${events.number + 1},type=${type},actor=${actor})}">Sau</a>
+    </nav>
+</main>
+</body>
+</html>

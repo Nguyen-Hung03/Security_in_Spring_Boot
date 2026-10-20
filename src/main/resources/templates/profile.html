@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Hồ sơ')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <div class="col-lg-6">
+        <h1 class="h3 mb-3">Hồ sơ</h1>
+        <div th:if="${saved}" class="alert alert-success">Đã lưu hồ sơ.</div>
+        <form th:action="@{/account/profile}" th:object="${form}" method="post" class="card card-body" novalidate>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" th:value="${email}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Họ tên</label>
+                <input th:field="*{fullName}" class="form-control" th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{fullName}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Số điện thoại</label>
+                <input th:field="*{phone}" class="form-control" th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{phone}"></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Lưu</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

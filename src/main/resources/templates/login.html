@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Đăng nhập')}"></head>
+<body class="bg-light">
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h1 class="h3 mb-4 text-center">Đăng nhập</h1>
+            <div th:if="${param.error}" class="alert alert-danger">Sai email hoặc mật khẩu.</div>
+            <div th:if="${param.logout}" class="alert alert-success">Bạn đã đăng xuất.</div>
+            <div th:if="${param.registered}" class="alert alert-info">Hãy mở email để xác minh tài khoản trước khi đăng nhập.</div>
+            <div th:if="${param.verified}" class="alert alert-success">Email đã được xác minh. Bạn có thể đăng nhập.</div>
+            <div th:if="${param.verifyError}" class="alert alert-danger">Link xác minh không hợp lệ hoặc đã hết hạn.</div>
+            <div th:if="${param.reset}" class="alert alert-success">Mật khẩu đã được đặt lại. Hãy đăng nhập.</div>
+            <div th:if="${param.expired}" class="alert alert-warning">Phiên đăng nhập đã kết thúc.</div>
+            <div th:if="${param.resent}" class="alert alert-info">Nếu email đang chờ xác minh, chúng tôi đã gửi lại liên kết.</div>
+            <form th:action="@{/login}" method="post" class="card card-body" novalidate>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email</label>
+                    <input id="username" name="username" class="form-control" autocomplete="username" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input id="password" name="password" type="password" class="form-control" autocomplete="current-password" required>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="remember-me" id="remember-me" value="true">
+                    <label class="form-check-label" for="remember-me">Ghi nhớ đăng nhập 14 ngày</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+            </form>
+            <p class="text-center mt-3 mb-1">Chưa có tài khoản? <a th:href="@{/registration}">Đăng ký</a></p>
+            <p class="text-center mb-0"><a th:href="@{/forgot-password}">Quên mật khẩu</a></p>
+            <form th:action="@{/verification/resend}" method="post" class="card card-body mt-4">
+                <label for="resendEmail" class="form-label">Gửi lại email xác minh</label>
+                <input id="resendEmail" name="email" type="email" class="form-control mb-3" autocomplete="email">
+                <button class="btn btn-outline-secondary" type="submit">Gửi lại</button>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

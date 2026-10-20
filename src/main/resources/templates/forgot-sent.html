@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Đã gửi hướng dẫn')}"></head>
+<body class="bg-light">
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="alert alert-info">Nếu email tồn tại trong hệ thống, chúng tôi đã gửi hướng dẫn đặt lại mật khẩu.</div>
+            <p class="text-center"><a th:href="@{/login}">Quay lại đăng nhập</a></p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

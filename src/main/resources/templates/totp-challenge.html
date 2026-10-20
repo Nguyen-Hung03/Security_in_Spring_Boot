@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Xác thực hai bước')}"></head>
+<body class="bg-light">
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h1 class="h3 mb-4 text-center">Xác thực hai bước</h1>
+            <div th:if="${param.error}" class="alert alert-danger">Mã xác thực không đúng.</div>
+            <form th:action="@{/2fa}" method="post" class="card card-body">
+                <label for="code" class="form-label">Mã từ ứng dụng hoặc mã khôi phục</label>
+                <input id="code" name="code" class="form-control mb-3" autocomplete="one-time-code" required>
+                <button class="btn btn-primary w-100" type="submit">Tiếp tục</button>
+            </form>
+            <form th:action="@{/logout}" method="post" class="text-center mt-3">
+                <button class="btn btn-link" type="submit">Đăng xuất</button>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

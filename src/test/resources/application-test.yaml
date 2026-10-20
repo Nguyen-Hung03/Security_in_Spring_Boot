@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:authtest;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  docker:
+    compose:
+      enabled: false
+  session:
+    jdbc:
+      initialize-schema: never
+  thymeleaf:
+    cache: false
+
+app:
+  base-url: http://localhost:8080
+  production: false
+  crypto:
+    key: 00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff
+  remember-me-key: test-remember-me-key-value
+  admin:
+    email: admin@fptaptech.edu.vn
+    password: "Portal#Secure2026!"
+    full-name: Quản trị viên

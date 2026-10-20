@@ -1,0 +1,20 @@
+spring:
+  thymeleaf:
+    cache: true
+
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+app:
+  production: true
+  base-url: ${APP_BASE_URL}
+  crypto:
+    key: ${APP_ENCRYPTION_KEY}
+  remember-me-key: ${APP_REMEMBER_ME_KEY}
+  admin:
+    email: ${APP_ADMIN_EMAIL}
+    password: ${APP_ADMIN_PASSWORD}
+    full-name: ${APP_ADMIN_FULL_NAME:Quản trị viên}

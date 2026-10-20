@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Thiết bị đăng nhập')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <h1 class="h3 mb-3">Thiết bị đăng nhập</h1>
+    <p class="text-secondary">Mỗi tài khoản có tối đa 2 phiên cùng lúc. Phiên cũ nhất sẽ kết thúc khi bạn đăng nhập thêm.</p>
+    <div class="table-responsive">
+        <table class="table bg-white">
+            <thead>
+            <tr>
+                <th>Thời điểm</th>
+                <th>IP</th>
+                <th>Trình duyệt</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="device : ${devices}">
+                <td th:text="${device.loggedInAt}">01/01/2026 08:00</td>
+                <td th:text="${device.ip}">127.0.0.1</td>
+                <td th:text="${device.userAgent}">browser</td>
+                <td>
+                    <span th:if="${device.current}" class="badge text-bg-primary">Phiên này</span>
+                    <form th:action="@{/account/sessions/{id}/revoke(id=${device.sessionId})}" method="post">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Đăng xuất</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(devices)}">
+                <td colspan="4">Chưa có phiên nào.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

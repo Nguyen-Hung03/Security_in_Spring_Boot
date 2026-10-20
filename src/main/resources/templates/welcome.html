@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments :: head('Trang chủ')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <h1 class="h3">Xin chào, <span sec:authentication="principal.fullName">bạn</span></h1>
+    <p class="text-secondary mb-1">Email: <span sec:authentication="name">user</span></p>
+    <p class="text-secondary">Vai trò: <span sec:authentication="principal.authorities">[ROLE_STUDENT]</span></p>
+</main>
+</body>
+</html>

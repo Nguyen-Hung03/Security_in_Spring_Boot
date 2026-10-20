@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Mã khôi phục')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <div class="col-lg-6">
+        <h1 class="h3">Lưu mã khôi phục</h1>
+        <p class="text-secondary">Mỗi mã chỉ dùng một lần. Đây là lần duy nhất hệ thống hiển thị chúng.</p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item recovery-code" th:each="code : ${recoveryCodes}" th:text="${code}">ABCD-EFGH</li>
+        </ul>
+        <a class="btn btn-primary" th:href="@{/}">Về trang chủ</a>
+    </div>
+</main>
+</body>
+</html>

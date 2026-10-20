@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Học viên')}"></head>
+<body class="bg-light">
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container pb-5">
+    <h1 class="h3 mb-3">Danh sách học viên</h1>
+    <div class="table-responsive">
+        <table class="table bg-white">
+            <thead>
+            <tr><th>Email</th><th>Họ tên</th><th>Trạng thái</th><th>Ngày tạo</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users.content}">
+                <td th:text="${user.email}">a@b.c</td>
+                <td th:text="${user.fullName}">Tên</td>
+                <td th:text="${user.status}">ACTIVE</td>
+                <td th:text="${user.createdAt}">ngày</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="d-flex gap-3" th:if="${users.totalPages > 1}">
+        <a th:if="${users.hasPrevious()}" th:href="@{/lecturer/students(page=${users.number - 1})}">Trước</a>
+        <a th:if="${users.hasNext()}" th:href="@{/lecturer/students(page=${users.number + 1})}">Sau</a>
+    </nav>
+</main>
+</body>
+</html>
